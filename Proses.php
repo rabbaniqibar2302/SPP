@@ -16,5 +16,5 @@ class Proses extends Koneksi
     }
 }
 
-$proses = new Proses;
-var_dump($proses->loginPetugas('admin',  sha1('admin')));
+// $proses = new Proses;
+// var_dump($proses->loginPetugas('admin',  sha1('admin')));

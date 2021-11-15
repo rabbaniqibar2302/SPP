@@ -12,10 +12,9 @@ class Koneksi
         $this->konek = mysqli_connect($this->host, $this->user, $this->pass, $this->db_name);
 
         if ($this->konek) {
-            echo "Koneksi Sukses";
+            // echo "Koneksi berhasil";
         } else {
             echo "Koneksi Gagal";
         }
     }
 }
-// $konek = new Koneksi;
