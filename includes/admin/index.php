@@ -9,6 +9,7 @@ if (!isset($_SESSION['id'])) {
     header('Location: ../../');
 }
 
+//ini adalah session id
 $id = $_SESSION['id'];
 
 $data = $admin->getDataPetugas($id);
