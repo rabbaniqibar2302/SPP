@@ -4,6 +4,14 @@ require_once 'Proses.php';
 
 $proses = new Proses;
 
+if (isset($_SESSION['id'])) {
+    if ($_SESSION['level'] == "Admin") {
+        header('Location: includes/admin/');
+    } else {
+        header('Location: includes/petugas/');
+    }
+}
+
 if (isset($_POST['masuk'])) {
     $username = $proses->konek->real_escape_string($_POST['username']);
     $password = $proses->konek->real_escape_string(sha1($_POST['password']));
@@ -14,7 +22,9 @@ if (isset($_POST['masuk'])) {
         $data = mysqli_fetch_assoc($masuk);
 
         if ($data['level'] == "Admin") {
-            echo "Pergi Ke Halaman Admin";
+            header('Location:includes/index.php');
+            $_SESSION['id'] = $data['id_petugas'];
+            $_SESSION['level'] = $data['level'];
         } else {
             echo "Pergi Ke Halaman Petugas";
         }
@@ -38,6 +48,11 @@ if (isset($_POST['masuk'])) {
 <body>
     <center>
         <h4>Silahkan Masuk</h4>
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo '<span style="color:red;">' . $_SESSION['error'] . '</span>';
+        }
+        ?>
         <form action="" method="post" autocomplete="off">
             <label for="username">Username</label>
             <input type="text" name="username" id="username"><br>
