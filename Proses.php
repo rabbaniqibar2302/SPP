@@ -9,7 +9,7 @@ class Proses extends Koneksi
         $stmt =  mysqli_query($this->konek, "SELECT * FROM tb_petugas WHERE username = '" . $username . "' AND password = '" . $password . "' ");
 
         if ($stmt->num_rows > 0) {
-            return true;
+            return $stmt;
         } else {
             return false;
         }

@@ -1,4 +1,5 @@
 <?php
+if (!session_id()) session_start();
 require_once 'Proses.php';
 
 $proses = new Proses;
@@ -6,7 +7,20 @@ $proses = new Proses;
 if (isset($_POST['masuk'])) {
     $username = $proses->konek->real_escape_string($_POST['username']);
     $password = $proses->konek->real_escape_string(sha1($_POST['password']));
-    $proses->loginPetugas($username, $password);
+
+    $masuk = $proses->loginPetugas($username, $password);
+
+    if ($masuk->num_rows > 0) {
+        $data = mysqli_fetch_assoc($masuk);
+
+        if ($data['level'] == "Admin") {
+            echo "Pergi Ke Halaman Admin";
+        } else {
+            echo "Pergi Ke Halaman Petugas";
+        }
+    } else {
+        $_SESSION['error'] = "Username atau password anda tidak valid";
+    }
 }
 
 ?>
